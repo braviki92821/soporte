@@ -1,0 +1,98 @@
+    <!-- Navegación Superior -->
+    <nav class="sticky top-0 bg-blue-500 p-4 flex items-center justify-between">
+      <div>
+        <img class="w-28" src="./assets/logovwpozarica.png" alt=""/>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="text-white">Bienvenido</span>
+        <i class="fas fa-user-circle text-white text-2xl"></i>
+      </div>
+    </nav>
+  
+    <!-- Navegación lateral -->
+    <aside class="fixed bg-gray-800 text-white w-64 min-h-screen p-4">
+      <nav>
+        <ul class="space-y-2">
+          <li class="opcion-con-desplegable">
+            <div class="flex items-center justify-between p-2 hover:bg-gray-700">
+              <div class="flex items-center">
+                <i class="fas fa-tv mr-2"></i>
+                <span>Inicio</span>
+              </div>
+            </div>
+          </li>
+          <li class="opcion-con-desplegable">
+            <div class="flex items-center justify-between p-2 hover:bg-gray-700">
+              <div class="flex items-center">
+                <i class="fas fa-id-badge mr-2"></i>
+                <span>Perfil</span>
+              </div>
+              <i class="fas fa-chevron-down text-xs"></i>
+            </div>
+            <ul class="desplegable ml-4 hidden">
+              <li>
+                <a href="#" class="block p-2 hover:bg-gray-700  items-center">
+                  <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                  Mis Datos
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/auth/login']" class="block p-2 hover:bg-gray-700  items-center">
+                  <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                  Cerrar sesión
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="opcion-con-desplegable">
+            <div class="flex items-center justify-between p-2 hover:bg-gray-700">
+              <div class="flex items-center">
+                 <i class="fa fa-question-circle  mr-2" ></i>
+                <span>Soporte</span>
+              </div>
+              <i class="fas fa-chevron-down text-xs"></i>
+            </div>
+            <ul class="desplegable ml-4 hidden">
+              <li>
+                <a [routerLink]="['/support/crear-reporte']" class="block p-2 hover:bg-gray-700 items-center">
+                  <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                   Solicitar Soporte
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/support/mis-reportes']" class="block p-2 hover:bg-gray-700  items-center">
+                  <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                  Tus Reportes
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="opcion-con-desplegable">
+            <div class="flex items-center justify-between p-2 hover:bg-gray-700">
+              <div class="flex items-center">
+                <i class="fas fa-inbox mr-2"></i>
+                <span>Mensajes</span>
+              </div>
+              <i class="fas fa-chevron-down text-xs"></i>
+            </div>
+            <ul class="desplegable ml-4 hidden">
+              <li>
+                <a href="#" class="block p-2 hover:bg-gray-700  items-center">
+                  <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                  Buzon de Soporte
+                </a>
+              </li>
+              <li>
+                <a href="#" class="block p-2 hover:bg-gray-700  items-center">
+                  <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                  Informe médico
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- Agrega más enlaces para la navegación lateral -->
+        </ul>
+      </nav>
+    </aside>
+
+  

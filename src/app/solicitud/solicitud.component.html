@@ -1,0 +1,45 @@
+<app-header></app-header>
+<main class="p-4 sm:ml-64">
+    <div class="mt-8 mx-auto max-w-screen-md">
+        <h1 class="text-center mt-5 font-bold text-2xl">Crear Solicitud para soporte tecnico</h1>
+        <div class="max-w-md mx-auto my-10">
+            <p class="bg-red-600 text-white uppercase text-xs text-center p-2 mb-1 font-bold" *ngIf="validationError('titulo')">El titulo es obligatorio</p>
+            <p class="bg-red-600 text-white uppercase text-xs text-center p-2 mb-1 font-bold" *ngIf="validationError('descripcion')">La descripción es obligatorio</p>
+            <p class="bg-red-600 text-white uppercase text-xs text-center p-2 mb-1 font-bold" *ngIf="customError['descripcion'].getError('minlength')">La descripcion debe ser mayor a 10 caracteres</p>
+            <p class="bg-red-600 text-white uppercase text-xs text-center p-2 mb-1 font-bold" *ngIf="validationError('tipo')">El tipo es obligatorio</p>
+            <p class="bg-red-600 text-white uppercase text-xs text-center p-2 mb-1 font-bold" *ngIf="validationError('prioridad')">La prioridad es obligatoria</p>
+        </div>
+        <form [formGroup]="newReportForm" (ngSubmit)="sendReport()" class="space-y-5">
+            <div>
+                <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="nombre"> Titulo </label>
+                <input class="w-full px-3 py-2 border border-gray-600 rounded-md placeholder-gray-400" type="text" formControlName="titulo" name="titulo">
+            </div>         
+            <div>
+                <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="tipo"> Tipo </label>
+                <select type="value" class="w-full px-3 py-2 border border-gray-600 rounded-md" formControlName="tipo">
+                <option [value]="''" selected>---Seleccione---</option>
+                <option [value]="'Tecnico'">Fallo de equipo</option>
+                <option [value]="'Datos'">Error en datos de la cuenta</option>
+                <option [value]="'Acceso'">Problema de Acceso a cuenta</option>
+                <option [value]="'Informacion'">Informacion</option>
+              </select>
+            </div>
+            <div>
+                <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="prioridad"> Prioridad </label>
+                <select type="value" class="w-full px-3 py-2 border border-gray-600 rounded-md" formControlName="prioridad">
+                <option [value]="''" selected>---Seleccione---</option>
+                <option [value]="'Baja'">Baja</option>
+                <option [value]="'Media'">Media</option>
+                <option [value]="'Alta'">Alta</option>
+              </select>
+            </div>
+            <div>
+                <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="correo"> Descripcion </label>
+                <textarea class="w-full px-3 py-2 border border-gray-600 rounded-md placeholder-gray-400" name="descripcion" formControlName="descripcion" cols="10" rows="5"></textarea>
+            </div>
+    
+            <input class="w-full bg-blue-900 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer" type="submit" value="Enviar Reporte">
+        </form>
+    </div>
+</main>
+
