@@ -19,6 +19,7 @@ import { MisReportesComponent } from './mis-reportes/mis-reportes.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { TableroSoporteComponent } from './tablero-soporte/tablero-soporte.component';
 import { TableroSolicitudesComponent } from './tablero-solicitudes/tablero-solicitudes.component';
+import { OlvidePasswordComponent } from './olvide-password/olvide-password.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TableroSolicitudesComponent } from './tablero-solicitudes/tablero-solic
     MisReportesComponent,
     PerfilComponent,
     TableroSoporteComponent,
-    TableroSolicitudesComponent
+    TableroSolicitudesComponent,
+    OlvidePasswordComponent
   ],
   imports: [
     BrowserModule,

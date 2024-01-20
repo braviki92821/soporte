@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-header-admin',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
     this.header()
@@ -23,6 +24,10 @@ export class HeaderAdminComponent implements OnInit {
         desplegable?.classList.toggle("hidden");
       });
     });
+  }
+
+  logout(){
+      this.auth.logout();
   }
 
 }

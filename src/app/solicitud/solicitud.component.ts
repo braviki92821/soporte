@@ -53,7 +53,7 @@ export class SolicitudComponent implements OnInit {
     this.reporte.id = this.firestore.getId()
     this.reporte.fecha = this.today.toLocaleDateString()
     this.reporte.estatus = 'Enviado'
-    this.reporte.autor = 'uZlKZqhgfiZY9Jf00kwtXkCuhu13'
+    this.reporte.autor = 'BYpJc5M1GEbn2bAT7njBcznmIlt2'
     this.firestore.createDocument(this.reporte, 'reportes', this.reporte.id).catch((error) => {
           alert('Error al enviar')
     });

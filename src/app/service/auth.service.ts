@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
 import { map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
   constructor(private authfirebase: AngularFireAuth, private firestore: AngularFirestore, private https: HttpClient) { }

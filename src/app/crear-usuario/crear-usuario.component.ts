@@ -1,4 +1,4 @@
-import { Component, OnInit, Sanitizer } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirestoreService } from 'src/app/service/firestore.service';
 import { ActivatedRoute } from '@angular/router';
@@ -23,9 +23,7 @@ export class CrearUsuarioComponent implements OnInit {
 
   public usuario: Usuarios
 
-  constructor(private fb: FormBuilder, private firestore: FirestoreService, private aroute: ActivatedRoute, private auth: AuthService) { 
-    
-  }
+  constructor(private fb: FormBuilder, private firestore: FirestoreService, private aroute: ActivatedRoute, private auth: AuthService) {}
 
   ngOnInit(): void {
   }
@@ -44,13 +42,12 @@ export class CrearUsuarioComponent implements OnInit {
   newUser() {
       this.formSubmmited = true
       this.usuario = this.newUserForm.value
-      this.usuario.password = this.generarPassword()
+      let password: string = this.generarPassword()
       this.usuario.estatus = true
       if (this.newUserForm.invalid){
         return
       }
-      
-      this.auth.registrerUser(this.usuario.correo, this.usuario.password).subscribe((datos:any) => {
+      this.auth.registrerUser(this.usuario.correo, password).subscribe((datos:any) => {
         const { localId } = datos
         this.usuario.id = localId
         this.firestore.createDocument(this.usuario, 'usuarios', localId)

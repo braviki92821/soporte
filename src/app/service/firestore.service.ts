@@ -20,10 +20,6 @@ export class FirestoreService {
     return this.firestore.createId();
   }
 
-  getTimestamp() {
-    return 
-    }
-
   getCollectionByEquals<tipo>(path: string, field: string, compare: string, ) {
     const collection = this.firestore.collection<tipo>(path, (ref) =>
       ref.where(field, '==', compare)
@@ -45,4 +41,5 @@ export class FirestoreService {
   updateDocument(id:string, data:any, collection: string){
     return this.firestore.collection(collection).doc(id).update(data);
   }
+  
 }

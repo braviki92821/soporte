@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirestoreService } from '../service/firestore.service';
 import { Reportes } from '../modelos/reportes';
 
@@ -11,17 +11,28 @@ import { Reportes } from '../modelos/reportes';
 export class TableroSolicitudesComponent implements OnInit {
 
   public consultReports: Reportes[]
+  public modal: HTMLElement | null
+  public modalInfo: HTMLElement | null
+  public closeFormModal: HTMLElement | null
+  public inputId: HTMLElement | null
+  public inputNombre: HTMLElement | null
+  public inputArea: HTMLElement | null
 
-  public modal = document.querySelector('.modal-respuesta')
-
-  public closeFormModal = document.querySelector('.modal-respuesta-cerrar')
-
-  public inputId = document.querySelector('.reporte-Id')
+  public soporteForm: FormGroup = this.fb.group({
+      idReporte:['', Validators.required],
+      solucion: ['', Validators.required]
+  })
   
   constructor(private firestore: FirestoreService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.reportTable()
+    this.modal = document.querySelector('.modal-respuesta')
+    this.modalInfo = document.querySelector('.modal-info')
+    this.closeFormModal = document.querySelector('.modal-respuesta-cerrar')
+    this.inputId = document.querySelector('.reporte-Id')
+    this.inputNombre = document.querySelector('.usuario-Id')
+    this.inputArea = document.querySelector('.usuario-Area')
   }
 
   reportTable() {
@@ -31,14 +42,32 @@ export class TableroSolicitudesComponent implements OnInit {
   }
 
   showModalForm(event: any) {
-     this.modal = document.querySelector('.modal-respuesta')
-     this.modal?.classList.remove('hidden')
      const { reportid } = event.target.dataset
-     this.inputId?.setAttribute('value', reportid)
+     this.modal?.classList.remove('hidden')
+     this.inputId?.setAttribute('disabled', '')
+     this.soporteForm.setValue({
+      idReporte: reportid,
+      solucion: ''
+     })
+  }
+
+  autor(event: any){
+     const { autor } = event.target.dataset
+     this.modalInfo?.classList.remove('hidden')
+      this.firestore.getDocument(autor, 'usuarios').subscribe((datos)=> {
+      this.inputNombre?.setAttribute('value', datos.payload.data()['nombre'])
+      this.inputNombre?.setAttribute('disabled', '')
+      this.inputArea?.setAttribute('value', datos.payload.data()['area'])
+      this.inputArea?.setAttribute('disabled', '')
+    })
   }
 
   closeModal() {
     this.modal?.classList.add('hidden')
+  }
+
+  closeModalInfo(){
+    this.modalInfo?.classList.add('hidden')
   }
 
 }

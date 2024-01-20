@@ -24,7 +24,12 @@
             </div>
             <div>
                 <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="tipo"> Tipo </label>
-                <input class="w-full px-3 py-2 border border-gray-600 rounded-md placeholder-gray-400" type="text" formControlName="tipo" name="tipo">
+                <select formControlName="tipo" name="tipo" class="w-full px-3 py-2 border border-gray-600 rounded-md">
+                    <option [value]="''">---Seleccione---</option>
+                    <option [value]="'Administrador'">Administrador</option>
+                    <option [value]="'Soporte'">Soporte</option>
+                    <option [value]="'Usuario'">Usuario</option>
+                </select>
             </div>
     
             <input class="w-full bg-blue-900 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer" type="submit" value="Crear Usuario">

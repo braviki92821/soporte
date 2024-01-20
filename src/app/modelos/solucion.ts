@@ -5,5 +5,3 @@ export interface Solucion {
     fecha: string
     mensaje: string
 }
-
-///joven Jane austin
