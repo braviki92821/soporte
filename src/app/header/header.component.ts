@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  public nombre: string
+  constructor(private auth: AuthService, private aroute: Router) { }
 
   ngOnInit(): void {
+    this.nombre = localStorage.getItem('usuario')?.toString() || ''
     this.header()
   }
 
@@ -25,5 +29,10 @@ export class HeaderComponent implements OnInit {
       });
     });
   }
+
+  logout(){
+    this.auth.logout();
+    this.aroute.navigate(['/auth/login'])
+}
 
 }

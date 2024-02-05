@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-soporte',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderSoporteComponent implements OnInit {
 
-  constructor() { }
+  public nombre: string
+  constructor(private auth: AuthService, private aroute: Router) { }
 
   ngOnInit(): void {
+    this.nombre = localStorage.getItem('usuario')?.toString() || ''
     this.header()
   }
 
@@ -23,6 +27,11 @@ export class HeaderSoporteComponent implements OnInit {
         desplegable?.classList.toggle("hidden");
       });
     });
+  }
+
+  CloseSesion(): void {
+    this.auth.logout()
+    this.aroute.navigate(['/auth/login'])
   }
 
 }

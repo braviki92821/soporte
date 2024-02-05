@@ -11,12 +11,12 @@ export class FirestoreService {
 
   constructor(private firestore: AngularFirestore, private storage: AngularFireStorage) { }
 
-  createDocument(data: any, path: string, id: string) {
+  createDocument(data: any, path: string, id: string): Promise<void> {
     const collection = this.firestore.collection(path);
     return collection.doc(id).set(data);
   }
 
-  getId() {
+  getId(): string {
     return this.firestore.createId();
   }
 
@@ -38,7 +38,7 @@ export class FirestoreService {
     return this.firestore.collection(collection).doc(id).snapshotChanges();
   }
 
-  updateDocument(id:string, data:any, collection: string){
+  updateDocument(id:string, data:any, collection: string): Promise<void> {
     return this.firestore.collection(collection).doc(id).update(data);
   }
   

@@ -4,7 +4,7 @@ import { AuthService } from '../service/auth.service';
 import { FirestoreService } from '../service/firestore.service';
 import { ActivatedRoute } from '@angular/router';
 import { Reportes } from '../modelos/reportes';
-import { DatePipe } from '@angular/common';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-solicitud',
@@ -22,13 +22,18 @@ export class SolicitudComponent implements OnInit {
     prioridad : ['', Validators.required]
   })
 
+  public uId: string;
   public reporte: Reportes
-
   public today: Date = new Date();
-
   public errorFire = document.querySelector(".error-firebase")
 
-  constructor(private fb: FormBuilder, private firestore: FirestoreService, private aroute: ActivatedRoute, private auth: AuthService) { }
+  constructor(private fb: FormBuilder, private firestore: FirestoreService, private aroute: ActivatedRoute, private auth: AngularFireAuth) {
+    this.auth.currentUser.then( (auth)=> {
+      this.uId = String(auth?.uid)
+     }).catch((error)=> {
+       console.log(error)
+     })
+   }
 
   ngOnInit(): void {  
   }
@@ -44,7 +49,7 @@ export class SolicitudComponent implements OnInit {
     return this.newReportForm?.controls;
   }
 
-  sendReport() {
+  sendReport(): void {
     this.formSubmmited = true
     if(this.newReportForm.invalid) {
         return
@@ -53,7 +58,7 @@ export class SolicitudComponent implements OnInit {
     this.reporte.id = this.firestore.getId()
     this.reporte.fecha = this.today.toLocaleDateString()
     this.reporte.estatus = 'Enviado'
-    this.reporte.autor = 'BYpJc5M1GEbn2bAT7njBcznmIlt2'
+    this.reporte.autor = this.uId
     this.firestore.createDocument(this.reporte, 'reportes', this.reporte.id).catch((error) => {
           alert('Error al enviar')
     });

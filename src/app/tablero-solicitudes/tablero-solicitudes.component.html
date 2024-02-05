@@ -35,15 +35,13 @@
                       <input type="button" [attr.data-autor]="consult.autor" (click)="autor($event)" value="Mas Info" class="text-white font-bold w-full text-center bg-yellow-500 cursor-pointer"> 
                     </td> 
                     <td class="px-6 py-4">
-                        <input type="button" [attr.data-reportId]="consult.id" (click)="showModalForm($event)" class="text-white font-bold w-full text-center bg-green-500 cursor-pointer" value="Responder">
+                        <input type="button" [attr.data-reportId]="consult.id" [attr.data-usuarioId]="consult.autor" (click)="showModalForm($event)" class="text-white font-bold w-full text-center bg-green-500 cursor-pointer" value="Responder">
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-
-      
-      <!-- Main modal -->
+ 
     <div class="modal-respuesta hidden fixed inset-10" x-cloak>
       <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <!-- Modal panel -->
@@ -59,6 +57,7 @@
                       <div>
                         <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="nombre"> Id de reporte. </label>
                         <input type="text" class="reporte-Id mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" formControlName="idReporte" name="idReporte">
+                        <input type="hidden" class="usuario-Id mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" formControlName="destinatario" name="destinatario">
                       </div>
                       <div>
                         <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="nombre"> Respuesta </label>
@@ -76,7 +75,7 @@
       </div>
     </div>
 
-    <div class="modal-info hidden fixed inset-10" x-cloak>
+    <div class="modal-info hidden fixed inset-10">
       <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <!-- Modal panel -->
         <div class="w-full inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
@@ -89,7 +88,7 @@
                 <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline"> Usuario Info</h3>
                   <div>
                     <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="nombre"> Nombre </label>
-                    <input type="text" class="usuario-Id mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500">
+                    <input type="text" class="usuario-Ida mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500">
                   </div>
                   <div>
                     <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="area"> Area </label>
@@ -104,7 +103,6 @@
         </div>
       </div>
     </div>
-
 
 </main>
 

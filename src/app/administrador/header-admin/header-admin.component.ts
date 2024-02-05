@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '../../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-admin',
@@ -8,9 +9,11 @@ import { AuthService } from '../service/auth.service';
 })
 export class HeaderAdminComponent implements OnInit {
 
-  constructor(private auth: AuthService) { }
+  public nombre: string
+  constructor(private auth: AuthService, private aroute: Router) { }
 
   ngOnInit(): void {
+    this.nombre = localStorage.getItem('usuario')?.toString() || ''
     this.header()
   }
 
@@ -28,6 +31,7 @@ export class HeaderAdminComponent implements OnInit {
 
   logout(){
       this.auth.logout();
+      this.aroute.navigate(['/auth/login'])
   }
 
 }

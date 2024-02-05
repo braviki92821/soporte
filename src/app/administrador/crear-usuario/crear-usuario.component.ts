@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirestoreService } from 'src/app/service/firestore.service';
 import { ActivatedRoute } from '@angular/router';
-import { Usuarios } from '../modelos/usuario.model';
-import { AuthService } from '../service/auth.service';
+import { Usuarios } from '../../modelos/usuario.model';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-crear-usuario',
@@ -39,7 +39,7 @@ export class CrearUsuarioComponent implements OnInit {
     return this.newUserForm?.controls;
   }
 
-  newUser() {
+  newUser(): void {
       this.formSubmmited = true
       this.usuario = this.newUserForm.value
       let password: string = this.generarPassword()
@@ -52,6 +52,7 @@ export class CrearUsuarioComponent implements OnInit {
         this.usuario.id = localId
         this.firestore.createDocument(this.usuario, 'usuarios', localId)
       })
+      alert("Creado correctamente")
       this.newUserForm.reset()
   }
 

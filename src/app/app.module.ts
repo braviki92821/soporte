@@ -9,17 +9,18 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { environment } from 'src/environments/environment';
 import { HeaderComponent } from './header/header.component';
-import { HeaderAdminComponent } from './header-admin/header-admin.component';
+import { HeaderAdminComponent } from './administrador/header-admin/header-admin.component';
 import { SolicitudComponent } from './solicitud/solicitud.component';
-import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
+import { CrearUsuarioComponent } from './administrador/crear-usuario/crear-usuario.component';
 import { HttpClientModule } from '@angular/common/http';
-import { UsuariosComponent } from './usuarios/usuarios.component';
+import { UsuariosComponent } from './administrador/usuarios/usuarios.component';
 import { HeaderSoporteComponent } from './header-soporte/header-soporte.component';
 import { MisReportesComponent } from './mis-reportes/mis-reportes.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { TableroSoporteComponent } from './tablero-soporte/tablero-soporte.component';
 import { TableroSolicitudesComponent } from './tablero-solicitudes/tablero-solicitudes.component';
 import { OlvidePasswordComponent } from './olvide-password/olvide-password.component';
+import { TableroAtencionComponent } from './administrador/tablero-atencion/tablero-atencion.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { OlvidePasswordComponent } from './olvide-password/olvide-password.compo
     PerfilComponent,
     TableroSoporteComponent,
     TableroSolicitudesComponent,
-    OlvidePasswordComponent
+    OlvidePasswordComponent,
+    TableroAtencionComponent
   ],
   imports: [
     BrowserModule,

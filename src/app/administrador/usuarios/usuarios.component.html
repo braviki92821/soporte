@@ -35,8 +35,7 @@
                         <p *ngIf="consult.estatus; else notShow">Activo</p>
                         <ng-template #notShow> <p> No activo </p> </ng-template> </td>
                     <td class="px-6 py-4">
-                        <a class="text-center text-white font-boldcursor-pointer bg-green-600 w-full block rounded-sm" href="">Editar</a>
-                        <a class="text-center text-white font-bold cursor-pointer bg-red-600 w-full block rounded-sm mt-2">Eliminar</a>
+                        <button [attr.data-usuarioId]="consult.id" (click)="deleteUser($event)" class="text-center text-white font-bold cursor-pointer bg-red-600 w-full block rounded-sm mt-2">Eliminar</button>
                     </td>
                 </tr>
             </tbody>
