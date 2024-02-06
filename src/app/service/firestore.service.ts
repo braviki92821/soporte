@@ -20,7 +20,7 @@ export class FirestoreService {
     return this.firestore.createId();
   }
 
-  getCollectionByEquals<tipo>(path: string, field: string, compare: string, ) {
+  getCollectionByEquals<tipo>(path: string, field: string, compare: string ) {
     const collection = this.firestore.collection<tipo>(path, (ref) =>
       ref.where(field, '==', compare)
     );
@@ -36,6 +36,10 @@ export class FirestoreService {
 
   getDocument(id: string,collection:string): Observable<any> {
     return this.firestore.collection(collection).doc(id).snapshotChanges();
+  }
+
+  getDocumentByEquals(collection: string, field: string, compare: string): Observable<any> { 
+    return this.firestore.collection(collection, (ref) => ref.where(field, '==', compare)).doc().snapshotChanges()
   }
 
   updateDocument(id:string, data:any, collection: string): Promise<void> {

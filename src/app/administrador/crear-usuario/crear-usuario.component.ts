@@ -28,7 +28,7 @@ export class CrearUsuarioComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  validationError( campo:string ): boolean {
+  validationError( campo: string ): boolean {
     if(this.newUserForm.get(campo)?.invalid && this.formSubmmited) {
         return true
     } 

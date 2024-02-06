@@ -1,0 +1,44 @@
+<app-header-admin></app-header-admin>
+<main class="p-4 sm:ml-64">
+    <div class="flex flex-row justify-between bg-white">
+        <!-- chat list -->
+        <div class="flex flex-col w-2/5 border-r-2 overflow-y-auto">
+          <div *ngFor="let consult of consultUsers">
+            <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2">
+                <div class="w-1/4">
+                  <img src="https://th.bing.com/th/id/R.19fa7497013a87bd77f7adb96beaf768?rik=144XvMigWWj2bw&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f5%2fUser-Profile-PNG-High-Quality-Image.png&ehk=%2bat%2brmqQuJrWL609bAlrUPYgzj%2b%2f7L1ErXRTN6ZyxR0%3d&risl=&pid=ImgRaw&r=0" class="object-cover h-12 w-12 rounded-full" alt="" />
+                </div>
+                <div class="w-full">
+                  <button class="text-lg font-semibold cursor-pointer" [attr.data-userId]="consult.id" (click)="getMessages($event)">{{consult.nombre}}</button>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="messages hidden w-full px-5 flex flex-col justify-between">
+            <div class="flex flex-col mt-5" *ngFor="let consult of consultMessages">
+              <div class="flex justify-start mb-4">
+                <p>Tu</p>
+                <div class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
+                    {{consult.mensaje}}
+                </div>
+              </div>
+              <!-- <div class="flex justify-end mb-4">
+                <div>
+                  <div class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Magnam, repudiandae.
+                  </div>
+                  <div  class="mt-4 mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Debitis, reiciendis!
+                  </div>
+                </div>
+                <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600" class="object-cover h-8 w-8 rounded-full" alt=""/>
+              </div> -->
+            </div>
+            <div class="py-5">
+              <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="text" placeholder="type your message here..."/>
+            </div>
+          </div>
+    </div>    
+</main>

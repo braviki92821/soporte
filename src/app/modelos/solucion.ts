@@ -2,6 +2,6 @@ export interface Solucion {
     id: string
     idReporte: string
     destinatario: string
-    fecha: string
+    autor: string
     mensaje: string
 }

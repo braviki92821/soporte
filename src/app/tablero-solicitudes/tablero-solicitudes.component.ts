@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirestoreService } from '../service/firestore.service';
 import { Reportes } from '../modelos/reportes';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Solucion } from '../modelos/solucion';
 
 @Component({
   selector: 'app-tablero-solicitudes',
@@ -13,6 +14,7 @@ export class TableroSolicitudesComponent implements OnInit {
 
   public uId: string;
   public consultReports: Reportes[]
+  public solucion: Solucion
   public modal: HTMLElement | null
   public modalInfo: HTMLElement | null
   public closeFormModal: HTMLElement | null
@@ -24,7 +26,7 @@ export class TableroSolicitudesComponent implements OnInit {
   public soporteForm: FormGroup = this.fb.group({
       idReporte:['', Validators.required],
       destinatario: ['', Validators.required],
-      solucion: ['', Validators.required]
+      mensaje: ['', Validators.required]
   })
   
   constructor(private firestore: FirestoreService, private fb: FormBuilder, private auth: AngularFireAuth) { 
@@ -56,16 +58,17 @@ export class TableroSolicitudesComponent implements OnInit {
   showModalForm(event: any): void {
      const { reportid } = event.target.dataset
      const { usuarioid } = event.target.dataset
+     console.log(reportid, usuarioid)
      this.modal?.classList.remove('hidden')
      this.inputId?.setAttribute('disabled', '')
      this.soporteForm.setValue({
       idReporte: reportid,
       destinatario: usuarioid,
-      solucion: ''
+      mensaje: ''
      })
   }
 
-  autor(event: any): void{
+  autor(event: any): void {
      const { autor } = event.target.dataset
      this.modalInfo?.classList.remove('hidden')
       this.firestore.getDocument(autor, 'usuarios').subscribe((datos)=> {
@@ -80,8 +83,23 @@ export class TableroSolicitudesComponent implements OnInit {
     this.modal?.classList.add('hidden')
   }
 
-  closeModalInfo() : void{
+  closeModalInfo(): void {
     this.modalInfo?.classList.add('hidden')
+  }
+
+  sendResponse(): void {
+    if(this.soporteForm.invalid){
+      return
+    }
+    this.solucion = this.soporteForm.value
+    this.solucion.id = this.firestore.getId()
+    this.solucion.autor = this.uId
+    this.firestore.updateDocument(this.solucion.idReporte, {estatus: 'Verificando'}, 'reportes')
+    this.firestore.createDocument(this.solucion, 'solucion', this.solucion.id).catch((error) => {
+      alert('Error al enviar')
+    });
+    alert('Solucion enviada')
+    this.closeModal()
   }
 
 }

@@ -27,8 +27,8 @@ export class SolicitudComponent implements OnInit {
   public today: Date = new Date();
   public errorFire = document.querySelector(".error-firebase")
 
-  constructor(private fb: FormBuilder, private firestore: FirestoreService, private aroute: ActivatedRoute, private auth: AngularFireAuth) {
-    this.auth.currentUser.then( (auth)=> {
+  constructor(private fb: FormBuilder, private firestore: FirestoreService, private auth: AngularFireAuth) {
+    this.auth.currentUser.then((auth)=> {
       this.uId = String(auth?.uid)
      }).catch((error)=> {
        console.log(error)

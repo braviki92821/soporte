@@ -21,6 +21,8 @@ import { TableroSoporteComponent } from './tablero-soporte/tablero-soporte.compo
 import { TableroSolicitudesComponent } from './tablero-solicitudes/tablero-solicitudes.component';
 import { OlvidePasswordComponent } from './olvide-password/olvide-password.component';
 import { TableroAtencionComponent } from './administrador/tablero-atencion/tablero-atencion.component';
+import { EnviarReporteAdminComponent } from './administrador/enviar-reporte-admin/enviar-reporte-admin.component';
+import { MensajesAdminComponent } from './administrador/mensajes-admin/mensajes-admin.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { TableroAtencionComponent } from './administrador/tablero-atencion/table
     TableroSoporteComponent,
     TableroSolicitudesComponent,
     OlvidePasswordComponent,
-    TableroAtencionComponent
+    TableroAtencionComponent,
+    EnviarReporteAdminComponent,
+    MensajesAdminComponent
   ],
   imports: [
     BrowserModule,

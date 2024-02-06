@@ -53,7 +53,7 @@
               </div>
               <div class="w-full mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline"> Entregar Solucion al reporte</h3>
-                    <form class="space-y-5" [formGroup]="soporteForm">
+                    <form class="space-y-5" [formGroup]="soporteForm" (ngSubmit)="sendResponse()">
                       <div>
                         <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="nombre"> Id de reporte. </label>
                         <input type="text" class="reporte-Id mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" formControlName="idReporte" name="idReporte">
@@ -61,7 +61,7 @@
                       </div>
                       <div>
                         <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="nombre"> Respuesta </label>
-                        <textarea class="w-full px-3 py-2 border border-gray-600 rounded-md placeholder-gray-400" name="solucion" formControlName="solucion" cols="30" rows="8"></textarea>
+                        <textarea class="w-full px-3 py-2 border border-gray-600 rounded-md placeholder-gray-400" name="mensaje" formControlName="mensaje" cols="30" rows="8"></textarea>
                       </div>
                       <input class="w-full bg-blue-900 hover:bg-indigo-700 text-white font-bold py-3 cursor-pointer" type="submit" value="Enviar Respuesta">
                     </form>
