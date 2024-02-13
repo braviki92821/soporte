@@ -21,15 +21,13 @@ export class AuthService {
     return this.https.post(url, body)
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Promise<unknown> {
     return new Promise((resolve, reject) => {
       this.authfirebase.signInWithEmailAndPassword(email, password).then(
         (datos) => { 
            resolve(datos) 
            this.getUser(datos.user?.uid).subscribe(user => {
-            console.log(datos.user?.uid)
             let tipo = user.payload.data()['tipo']
-            console.log(tipo == "Soporte")
                 if(tipo == "Administrador"){
                   this.aroute.navigate(['/admin/crear-usuario'])
                   localStorage.setItem('usuario',user.payload.data()['nombre']);
@@ -39,7 +37,7 @@ export class AuthService {
                   localStorage.setItem('usuario',user.payload.data()['nombre']);
                   localStorage.setItem('tipoUser',tipo)
                 } else if( tipo == "Usuario"){
-                  this.aroute.navigate(['/support/crear-reporte'])
+                  this.aroute.navigate(['/user/inicio'])
                   localStorage.setItem('usuario',user.payload.data()['nombre']);
                   localStorage.setItem('tipoUser',tipo)
                 }

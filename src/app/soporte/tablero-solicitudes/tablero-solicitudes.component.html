@@ -18,6 +18,9 @@
                         Tipo
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Archivo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Solicitante
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -31,6 +34,8 @@
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.titulo }} </td>
                     <td class="px-6 py-4 font-medium text-gray-900 text-wrap dark:text-white"> {{ consult.descripcion }} </td>
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.tipo }} </td>
+                    <td class="px-6 py-4 font-medium text-gray-900 text-wrap dark:text-white"> <p *ngIf="consult.archivo == null; else notShow">Sin archivo adjunto</p>
+                                                                                              <ng-template #notShow> <a href="{{consult.archivo}}" download>Descargar archivo</a> </ng-template> </td>
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> 
                       <input type="button" [attr.data-autor]="consult.autor" (click)="autor($event)" value="Mas Info" class="text-white font-bold w-full text-center bg-yellow-500 cursor-pointer"> 
                     </td> 
@@ -42,7 +47,7 @@
         </table>
     </div>
  
-    <div class="modal-respuesta hidden fixed inset-10" x-cloak>
+    <div *ngIf="modalR" class="fixed inset-10" >
       <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <!-- Modal panel -->
         <div class="w-full inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
@@ -56,7 +61,7 @@
                     <form class="space-y-5" [formGroup]="soporteForm" (ngSubmit)="sendResponse()">
                       <div>
                         <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="nombre"> Id de reporte. </label>
-                        <input type="text" class="reporte-Id mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" formControlName="idReporte" name="idReporte">
+                        <input type="text" class="reporte-Id mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" formControlName="id" name="id">
                         <input type="hidden" class="usuario-Id mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring focus:border-blue-500" formControlName="destinatario" name="destinatario">
                       </div>
                       <div>
@@ -75,7 +80,7 @@
       </div>
     </div>
 
-    <div class="modal-info hidden fixed inset-10">
+    <div class="modal-Info hidden fixed inset-10">
       <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <!-- Modal panel -->
         <div class="w-full inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">

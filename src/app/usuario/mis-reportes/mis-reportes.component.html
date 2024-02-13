@@ -30,7 +30,7 @@
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.id }} </td>
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.titulo }} </td>
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.estatus }} </td>
-                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.fecha }} </td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.enviado }} </td>
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> <p *ngIf="consult.atendido == '' || !consult.atendido; else notShow">Sin Atender</p>
                         <ng-template #notShow> <p> {{consult.atendido}} </p> </ng-template> </td>
                     <td class="px-6 py-4">

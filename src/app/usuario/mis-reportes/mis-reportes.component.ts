@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FirestoreService } from '../service/firestore.service';
-import { Reportes } from '../modelos/reportes';
+import { FirestoreService } from '../../service/firestore.service';
+import { Reportes } from '../../modelos/reportes';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -38,11 +38,11 @@ export class MisReportesComponent implements OnInit {
 
   showModalForm(event: any): void {
     const { reportid } = event.target.dataset
-    console.log(reportid)
+    //console.log(reportid)
     this.modal?.classList.remove('hidden')
-    this.firestore.getDocumentByEquals('solucion', 'idReporte', reportid).subscribe((datos) => {
-      console.log(datos[0].payload)
-      //this.mensaje?.setAttribute('value', mensaje.payload.data()['mensaje'])
+    this.firestore.getDocument(reportid, 'solucion').subscribe((datos) => {
+      //console.log(datos.payload.data()['mensaje'])
+      this.mensaje?.setAttribute('value', datos.payload.data()['mensaje'])
     })  
  }
 

@@ -17,7 +17,7 @@ export class HeaderAdminComponent implements OnInit {
     this.header()
   }
 
-  header() {
+  header(): void {
     const opcionesConDesplegable = document.querySelectorAll(".opcion-con-desplegable");
 
     opcionesConDesplegable.forEach(function (opcion) {
@@ -29,7 +29,7 @@ export class HeaderAdminComponent implements OnInit {
     });
   }
 
-  logout(){
+  logout(): void {
       this.auth.logout();
       this.aroute.navigate(['/auth/login'])
   }

@@ -46,7 +46,7 @@ export class TableroAtencionComponent implements OnInit {
 
   showModalForm(event: any): void {
     const { reportid } = event.target.dataset
-    this.formUser.setValue({ usuario: '', reporte: reportid})
+    this.formUser.patchValue({ reporte: reportid})
     this.modal?.classList.remove('hidden')
     this.reporteText?.setAttribute('disabled','')
   }
@@ -55,7 +55,7 @@ export class TableroAtencionComponent implements OnInit {
   this.modal?.classList.add('hidden')
   }
  
-  asignarReporte(): void{
+  asignarReporte(): void {
    this.formSubmmited = true
    if(this.formUser.invalid){
     this.formSubmmited = false

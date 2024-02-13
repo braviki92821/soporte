@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FirestoreService } from '../service/firestore.service';
-import { Reportes } from '../modelos/reportes';
+import { FirestoreService } from '../../service/firestore.service';
+import { Reportes } from '../../modelos/reportes';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Solucion } from '../modelos/solucion';
+import { Solucion } from '../../modelos/solucion';
+import { Mensajes } from 'src/app/modelos/mensajes';
 
 @Component({
   selector: 'app-tablero-solicitudes',
@@ -13,18 +14,18 @@ import { Solucion } from '../modelos/solucion';
 export class TableroSolicitudesComponent implements OnInit {
 
   public uId: string;
+  public modalR: boolean = false
+  public modalA: HTMLElement | null
   public consultReports: Reportes[]
   public solucion: Solucion
-  public modal: HTMLElement | null
-  public modalInfo: HTMLElement | null
-  public closeFormModal: HTMLElement | null
+  public mensaje: Mensajes
   public inputId: HTMLElement | null
   public destinatario:HTMLElement | null
   public inputNombre: HTMLElement | null
   public inputArea: HTMLElement | null
 
   public soporteForm: FormGroup = this.fb.group({
-      idReporte:['', Validators.required],
+      id:['', Validators.required],
       destinatario: ['', Validators.required],
       mensaje: ['', Validators.required]
   })
@@ -39,9 +40,7 @@ export class TableroSolicitudesComponent implements OnInit {
 
   ngOnInit(): void {
     this.reportTable()
-    this.modal = document.querySelector('.modal-respuesta')
-    this.modalInfo = document.querySelector('.modal-info')
-    this.closeFormModal = document.querySelector('.modal-respuesta-cerrar')
+    this.modalA = document.querySelector('.modal-Info')
     this.inputId = document.querySelector('.reporte-Id')
     this.destinatario = document.querySelector('.usuario-Id')
     this.inputNombre = document.querySelector('.usuario-Ida')
@@ -56,21 +55,21 @@ export class TableroSolicitudesComponent implements OnInit {
   }
 
   showModalForm(event: any): void {
+     this.modalR = true
      const { reportid } = event.target.dataset
      const { usuarioid } = event.target.dataset
-     console.log(reportid, usuarioid)
-     this.modal?.classList.remove('hidden')
      this.inputId?.setAttribute('disabled', '')
      this.soporteForm.setValue({
-      idReporte: reportid,
-      destinatario: usuarioid,
-      mensaje: ''
+       id: reportid,
+       destinatario: usuarioid,
+       mensaje: ''
      })
   }
 
   autor(event: any): void {
-     const { autor } = event.target.dataset
-     this.modalInfo?.classList.remove('hidden')
+      this.modalA?.classList.remove('hidden')
+      const { autor } = event.target.dataset
+      console.log(autor)
       this.firestore.getDocument(autor, 'usuarios').subscribe((datos)=> {
       this.inputNombre?.setAttribute('value', datos.payload.data()['nombre'])
       this.inputNombre?.setAttribute('disabled', '')
@@ -80,11 +79,11 @@ export class TableroSolicitudesComponent implements OnInit {
   }
 
   closeModal(): void {
-    this.modal?.classList.add('hidden')
+    this.modalR = false
   }
 
   closeModalInfo(): void {
-    this.modalInfo?.classList.add('hidden')
+    this.modalA?.classList.add('hidden')
   }
 
   sendResponse(): void {
@@ -92,9 +91,8 @@ export class TableroSolicitudesComponent implements OnInit {
       return
     }
     this.solucion = this.soporteForm.value
-    this.solucion.id = this.firestore.getId()
     this.solucion.autor = this.uId
-    this.firestore.updateDocument(this.solucion.idReporte, {estatus: 'Verificando'}, 'reportes')
+    this.firestore.updateDocument(this.solucion.id, { estatus: 'Verificando' }, 'reportes')
     this.firestore.createDocument(this.solucion, 'solucion', this.solucion.id).catch((error) => {
       alert('Error al enviar')
     });

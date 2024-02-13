@@ -1,0 +1,41 @@
+<app-header></app-header>
+<main class="p-4 sm:ml-64">
+    <h1 class="text-center mt-5 font-bold text-2xl">Bienvenido</h1>
+    <h2 class="text-center mt-5 font-bold text-lg"> Mensajes para usted</h2>
+    <div *ngIf="mensaje; else noMessages" class="bg-slate-300 shadow rounded-lg mt-4">
+            <ul class="divide-y divide-gray-200" *ngFor="let consult of mensajes">
+                <li >
+                    <div class="p-6 w-full flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-8 gap-4 md:space-y-0">
+                        <div class="sm:w-3/4 md:w-4/6 lg:w-5/6 space-y-3">
+                            <h2 class="text-center font-bold text-lg">{{consult.asunto}}</h2>
+                            <p class="text-center font-semibold text-md">{{consult.mensaje}}</p>
+                        </div>
+                        <div class="sm:w-1/4 md:w-2/6 lg:w-1/6 flex flex-col 2xl:flex-row gap-2 ">
+                            <button (click)="readMessage($event)" [attr.data-mensajeId]="consult.id" class="w-full cursor-pointer px-2 py-2 md:py-1 text-center text-xs leading-5 font-semibold rounded bg-green-400">Marcar como leido</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+    </div>
+    <ng-template #noMessages>
+        <div class="bg-slate-500 shadow rounded-md mt-5 w-full h-10 ">
+            <p class="text-center font-bold text-lg"> No hay mensajes para usted</p>
+        </div>       
+    </ng-template>
+    <h2 class="text-center mt-5 font-bold text-lg"> Avisos Generales </h2>
+    <div *ngIf="aviso; else noNews">
+        <ul class="divide-y divide-gray-200" *ngFor="let consult of avisos">
+            <li>
+                <div class="border border-gray-950 p-6 w-full items-center justify-between space-y-8 gap-4 md:space-y-0">
+                    <h2 class="text-center font-bold text-lg">{{consult.asunto}}</h2>
+                    <p  class="font-semibold text-md">{{consult.mensaje}}</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <ng-template #noNews>
+        <div class="bg-slate-500 shadow rounded-md mt-5 w-full h-10 ">
+            <p class="text-center font-bold text-lg"> Sin noticias actuales</p>
+        </div>       
+    </ng-template>
+</main>

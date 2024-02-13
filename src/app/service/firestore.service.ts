@@ -34,16 +34,39 @@ export class FirestoreService {
     return collection.valueChanges();
   }
 
+  getMessages<Mensajes>(destino:string, asunto: string, estatus: boolean): Observable<Mensajes[]> {
+    const collection = this.firestore.collection<Mensajes>('mensajes', (ref) => 
+      ref.where('destino', "==", destino).where('asunto','==', asunto).where('estatus', '==', estatus)
+    )
+    return collection.valueChanges();
+  }
+
   getDocument(id: string,collection:string): Observable<any> {
     return this.firestore.collection(collection).doc(id).snapshotChanges();
   }
 
   getDocumentByEquals(collection: string, field: string, compare: string): Observable<any> { 
-    return this.firestore.collection(collection, (ref) => ref.where(field, '==', compare)).doc().snapshotChanges()
+    return this.firestore.collection(collection, (ref) => ref.where(field, '==', compare)).snapshotChanges()
   }
 
   updateDocument(id:string, data:any, collection: string): Promise<void> {
     return this.firestore.collection(collection).doc(id).update(data);
+  }
+
+  uploadFile(archivo: any, nombre: string, path: string): Promise<string> {
+    return new Promise((resolve) => {
+      const ruta = path + nombre;
+      const ref = this.storage.ref(ruta);
+      const task = ref.put(archivo);
+      task.snapshotChanges().pipe( finalize(() => {
+            ref.getDownloadURL().subscribe((res) => {
+              const downloadURL = res;
+              resolve(downloadURL);
+              return;
+            });
+          })
+        ).subscribe(data=>data);
+    });
   }
   
 }

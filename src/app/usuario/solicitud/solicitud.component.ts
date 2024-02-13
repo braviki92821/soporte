@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../service/auth.service';
-import { FirestoreService } from '../service/firestore.service';
+import { AuthService } from '../../service/auth.service';
+import { FirestoreService } from '../../service/firestore.service';
 import { ActivatedRoute } from '@angular/router';
-import { Reportes } from '../modelos/reportes';
+import { Reportes } from '../../modelos/reportes';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -19,7 +19,8 @@ export class SolicitudComponent implements OnInit {
     titulo: ['', Validators.required],
     descripcion: ['', [Validators.required, Validators.minLength(10)]],
     tipo: ['', Validators.required],
-    prioridad : ['', Validators.required]
+    prioridad : ['', Validators.required],
+    archivo: []
   })
 
   public uId: string;
@@ -36,6 +37,7 @@ export class SolicitudComponent implements OnInit {
    }
 
   ngOnInit(): void {  
+
   }
 
   validationError( campo:string ): boolean {
@@ -49,20 +51,34 @@ export class SolicitudComponent implements OnInit {
     return this.newReportForm?.controls;
   }
 
-  sendReport(): void {
+  async sendReport(): Promise<void> {
     this.formSubmmited = true
     if(this.newReportForm.invalid) {
         return
     }
     this.reporte = this.newReportForm.value
     this.reporte.id = this.firestore.getId()
-    this.reporte.fecha = this.today.toLocaleDateString()
+    this.reporte.enviado = this.today.toLocaleDateString() + " " + this.today.toLocaleTimeString()
     this.reporte.estatus = 'Enviado'
     this.reporte.autor = this.uId
-    this.firestore.createDocument(this.reporte, 'reportes', this.reporte.id).catch((error) => {
+    if(this.newReportForm.value.archivo != null){
+      const url = await this.firestore.uploadFile(this.newReportForm.value.archivo, this.firestore.getId(), 'Reportes/')
+      this.reporte.archivo = url
+    }
+    await this.firestore.createDocument(this.reporte, 'reportes', this.reporte.id).catch((error) => {
+          console.log(error)
           alert('Error al enviar')
     });
           this.newReportForm.reset()
           alert('Enviado Correctamente')
+  }
+
+  onFileChange(event: any): void {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.newReportForm.patchValue({
+        archivo: file
+      });
+    }
   }
 }

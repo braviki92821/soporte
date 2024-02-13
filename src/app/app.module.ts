@@ -8,21 +8,26 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { environment } from 'src/environments/environment';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './usuario/header/header.component';
 import { HeaderAdminComponent } from './administrador/header-admin/header-admin.component';
-import { SolicitudComponent } from './solicitud/solicitud.component';
+import { SolicitudComponent } from './usuario/solicitud/solicitud.component';
 import { CrearUsuarioComponent } from './administrador/crear-usuario/crear-usuario.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UsuariosComponent } from './administrador/usuarios/usuarios.component';
-import { HeaderSoporteComponent } from './header-soporte/header-soporte.component';
-import { MisReportesComponent } from './mis-reportes/mis-reportes.component';
+import { HeaderSoporteComponent } from './soporte/header-soporte/header-soporte.component';
+import { MisReportesComponent } from './usuario/mis-reportes/mis-reportes.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { TableroSoporteComponent } from './tablero-soporte/tablero-soporte.component';
-import { TableroSolicitudesComponent } from './tablero-solicitudes/tablero-solicitudes.component';
+import { TableroSoporteComponent } from './soporte/tablero-soporte/tablero-soporte.component';
+import { TableroSolicitudesComponent } from './soporte/tablero-solicitudes/tablero-solicitudes.component';
 import { OlvidePasswordComponent } from './olvide-password/olvide-password.component';
 import { TableroAtencionComponent } from './administrador/tablero-atencion/tablero-atencion.component';
 import { EnviarReporteAdminComponent } from './administrador/enviar-reporte-admin/enviar-reporte-admin.component';
 import { MensajesAdminComponent } from './administrador/mensajes-admin/mensajes-admin.component';
+import { InicioComponent } from './usuario/inicio/inicio.component';
+import { SoporteInicioComponent } from './soporte/soporte-inicio/soporte-inicio.component';
+import { AdministradorInicioComponent } from './administrador/administrador-inicio/administrador-inicio.component';
+import { BitacoraComponent } from './administrador/bitacora/bitacora.component';
+import { PerfilAdministradorComponent } from './administrador/perfil-administrador/perfil-administrador.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,12 @@ import { MensajesAdminComponent } from './administrador/mensajes-admin/mensajes-
     OlvidePasswordComponent,
     TableroAtencionComponent,
     EnviarReporteAdminComponent,
-    MensajesAdminComponent
+    MensajesAdminComponent,
+    InicioComponent,
+    SoporteInicioComponent,
+    AdministradorInicioComponent,
+    BitacoraComponent,
+    PerfilAdministradorComponent
   ],
   imports: [
     BrowserModule,

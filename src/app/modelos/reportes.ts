@@ -5,7 +5,9 @@ export interface Reportes {
     descripcion: string
     prioridad: string
     estatus: string
-    fecha: string
+    enviado: string
+    recibido: string
+    archivo: string
     tipo: string
     atendido: string
 }

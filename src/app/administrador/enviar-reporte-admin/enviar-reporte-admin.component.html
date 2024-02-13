@@ -11,7 +11,11 @@
         <form [formGroup]="formMensaje" (ngSubmit)="sendMessage()" class="space-y-5">
             <div>
                 <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="nombre"> Asunto </label>
-                <input formControlName="asunto" class="w-full px-3 py-2 border border-gray-600 rounded-md placeholder-gray-400" type="text" name="asunto">
+                <select formControlName="asunto" name="aunto" class="w-full px-3 py-2 border border-gray-600 rounded-md">
+                    <option [value]="">---Seleccione---</option>
+                    <option [value]="'Aviso'">Aviso</option>
+                    <option [value]="'Atender'">Atender Solicitudes</option>
+                </select>
             </div>
             <div>
                 <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="correo"> Mensaje </label>

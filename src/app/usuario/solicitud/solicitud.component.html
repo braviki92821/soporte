@@ -34,6 +34,10 @@
               </select>
             </div>
             <div>
+                <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="prioridad"> Imagen o Archivo Pdf(opcional) </label>
+                <input type="file" (change)="onFileChange($event)" formControlName="archivo" name="archivo" class="block text-sm uppercase text-gray-500 mb-2 font-bold" accept=".pdf,.jpg,.jpeg,.png">
+            </div>
+            <div>
                 <label class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="correo"> Descripcion </label>
                 <textarea class="w-full px-3 py-2 border border-gray-600 rounded-md placeholder-gray-400" name="descripcion" formControlName="descripcion" cols="10" rows="5"></textarea>
             </div>
