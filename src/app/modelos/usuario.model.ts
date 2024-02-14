@@ -5,4 +5,5 @@ export interface Usuarios {
     area: string
     tipo: string
     estatus: boolean
+    createdAt: string
 }

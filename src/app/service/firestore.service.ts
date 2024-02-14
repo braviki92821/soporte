@@ -20,25 +20,38 @@ export class FirestoreService {
     return this.firestore.createId();
   }
 
-  getCollectionByEquals<tipo>(path: string, field: string, compare: string ) {
+  getCollection<tipo>(path: string): Observable<tipo[]> {
+    const collection = this.firestore.collection<tipo>(path, (ref)=> ref.orderBy('createdAt','asc'))
+    return collection.valueChanges();
+  }
+
+  getCollectionByEquals<tipo>(path: string, field: string, compare: string ): Observable<tipo[]> {
     const collection = this.firestore.collection<tipo>(path, (ref) =>
-      ref.where(field, '==', compare)
+      ref.where(field, '==', compare).orderBy('createdAt','asc')
     );
     return collection.valueChanges();
   }
 
-  getCollectionTwoArguments<tipo>(path: string, field: string, compare: string, field2: string, compare2: string) {
+  getCollectionTwoArguments<tipo>(path: string, field: string, compare: string, field2: string, compare2: string): Observable<tipo[]> {
     const collection = this.firestore.collection<tipo>(path, (ref) =>
-      ref.where(field, '==', compare).where(field2, '==', compare2)
+      ref.where(field, '==', compare).where(field2, '==', compare2).orderBy('createdAt','asc')
     );
     return collection.valueChanges();
   }
 
-  getMessages<Mensajes>(destino:string, asunto: string, estatus: boolean): Observable<Mensajes[]> {
+  getNotifications<Mensajes>(destino:string, asunto: string, estatus: boolean): Observable<Mensajes[]> {
     const collection = this.firestore.collection<Mensajes>('mensajes', (ref) => 
-      ref.where('destino', "==", destino).where('asunto','==', asunto).where('estatus', '==', estatus)
+      ref.where('destino', "==", destino).where('asunto','==', asunto).where('estatus', '==', estatus).orderBy('createdAt','asc')
     )
     return collection.valueChanges();
+  }
+
+  getMessages<Mensajes>(destino: string, autor: string): Observable<Mensajes[]> {
+    const collection = this.firestore.collection<Mensajes>('mensajes', (ref) => 
+    ref.where('destino', "in", [destino, autor]).where('asunto','==', 'Mensaje').where('autor', "in", [destino, autor]).orderBy('createdAt','asc'),
+    // Or.where('destino', "==", autor).where('asunto','==', 'Mensaje').where('autor', '==', destino)
+    )
+  return collection.valueChanges();
   }
 
   getDocument(id: string,collection:string): Observable<any> {

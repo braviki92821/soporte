@@ -18,6 +18,7 @@ import { InicioComponent } from './usuario/inicio/inicio.component';
 import { SoporteInicioComponent } from './soporte/soporte-inicio/soporte-inicio.component';
 import { AdministradorInicioComponent } from './administrador/administrador-inicio/administrador-inicio.component';
 import { BitacoraComponent } from './administrador/bitacora/bitacora.component';
+import { MensajesSoporteComponent } from './soporte/mensajes-soporte/mensajes-soporte.component';
 
 const routes: Routes = [
   { path:'', redirectTo: '/auth/login', pathMatch: 'full' },
@@ -34,8 +35,9 @@ const routes: Routes = [
   { path: 'user/crear-reporte', component: SolicitudComponent, canActivate: [UserGuardGuard] },
   { path: 'user/mis-reportes', component: MisReportesComponent, canActivate: [UserGuardGuard] },
   { path: 'support/inicio', component: SoporteInicioComponent, canActivate: [SupportGuardGuard] },
-  { path: 'support/tablero-reportes', component: TableroSoporteComponent, canActivate:[SupportGuardGuard]},
-  { path: 'support/tablero-soporte', component: TableroSolicitudesComponent, canActivate:[SupportGuardGuard]},
+  { path: 'support/tablero-reportes', component: TableroSoporteComponent, canActivate:[SupportGuardGuard] },
+  { path: 'support/tablero-soporte', component: TableroSolicitudesComponent, canActivate:[SupportGuardGuard] },
+  { path: 'support/mensajes', component: MensajesSoporteComponent, canActivate:[SupportGuardGuard] },
   { path:'**', redirectTo: '/auth/login', pathMatch: 'full'}
 ];
 

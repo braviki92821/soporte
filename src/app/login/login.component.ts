@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('usuario', user.payload.data()['nombre']);
             localStorage.setItem('tipoUser', user.payload.data()['tipo'])
           } else if(user.payload.data()['tipo'] == "Soporte"){
-            this.aroute.navigate(['/user/tablero-reportes'])
+            this.aroute.navigate(['/support/tablero-reportes'])
             localStorage.setItem('usuario', user.payload.data()['nombre']);
             localStorage.setItem('tipoUser', user.payload.data()['tipo'])
           } else if( user.payload.data()['tipo'] == "Usuario"){

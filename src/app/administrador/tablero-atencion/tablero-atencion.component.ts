@@ -33,7 +33,7 @@ export class TableroAtencionComponent implements OnInit {
   }
 
   reportTable(): void {
-    this.firestore.getCollectionByEquals<Reportes>('reportes', 'estatus', 'Enviado').subscribe((reportes) => {
+    this.firestore.getCollection<Reportes>('reportes').subscribe((reportes) => {
       this.consultReports = reportes
     })
   }

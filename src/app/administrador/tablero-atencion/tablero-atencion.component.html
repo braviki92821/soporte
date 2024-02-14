@@ -14,8 +14,11 @@
                     <th scope="col" class="px-6 py-3">
                         Enviado
                     </th>
+                    <th scope="col" class="px-6 py-3"|>
+                        Estatus
+                    </th>
                     <th scope="col" class="px-6 py-3">
-                        Tipo
+                        Recibido
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Prioridad
@@ -26,14 +29,18 @@
                 </tr>
             </thead>
             <tbody *ngFor="let consult of consultReports">
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.id }} </td>
-                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.titulo }} </td>
-                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.enviado }} </td>
-                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.tipo }} </td>
-                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{ consult.prioridad }} </td> 
+                <tr class="border-b bg-gray-800 border-gray-700">
+                    <td class="px-6 py-4 font-medium  whitespace-nowrap text-white"> {{ consult.id }} </td>
+                    <td class="px-6 py-4 font-medium  whitespace-nowrap text-white"> {{ consult.titulo }} </td>
+                    <td class="px-6 py-4 font-medium  whitespace-nowrap text-white"> {{ consult.enviado }} </td>
+                    <td class="px-6 py-4 font-medium  whitespace-nowrap text-white"> {{ consult.estatus }} </td>
+                    <td class="px-6 py-4 font-medium  whitespace-nowrap text-white"> {{ consult.recibido }} </td>
+                    <td class="px-6 py-4 font-medium  whitespace-nowrap text-white"> {{ consult.prioridad }} </td> 
                     <td class="px-6 py-4">
-                        <input type="button" [attr.data-reportId]="consult.id" (click)="showModalForm($event)" class="text-white font-bold w-full text-center bg-green-500 cursor-pointer" value="Asignar">
+                        <p class="font-medium text-white" *ngIf="consult.atendido != '' || consult.atendido != null; else show">Ya asignado</p>
+                        <ng-template #show>
+                            <input type="button" [attr.data-reportId]="consult.id" (click)="showModalForm($event)" class="text-white font-bold w-full text-center bg-green-500 cursor-pointer" value="Asignar">
+                        </ng-template>                       
                     </td>
                 </tr>
             </tbody>
@@ -74,4 +81,5 @@
           </div>
         </div>
       </div>
+
 </main>

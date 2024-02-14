@@ -10,4 +10,5 @@ export interface Reportes {
     archivo: string
     tipo: string
     atendido: string
+    createdAt: string
 }

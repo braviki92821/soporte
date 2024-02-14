@@ -42,7 +42,8 @@ export class TableroSoporteComponent implements OnInit {
         mensaje: '',
         autor: '',
         destino: '',
-        estatus: false
+        estatus: false,
+        createdAt: ''
       }
       const { reportid, usuarioid } = event.target.dataset
       if(reportid == '' || reportid == null) {
@@ -55,6 +56,7 @@ export class TableroSoporteComponent implements OnInit {
       mensaje.mensaje = "Tu reporte con Id: " + reportid + "Esta en revsion"
       mensaje.asunto = "Notificacion"
       mensaje.estatus = false
+      mensaje.createdAt = this.today.toLocaleDateString() + " " + this.today.toLocaleTimeString()
       let data = { 
         estatus: 'En Revision',
         recibido: this.today.toLocaleDateString() + " " + this.today.toLocaleTimeString(),

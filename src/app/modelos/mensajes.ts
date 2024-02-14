@@ -5,4 +5,5 @@ export interface Mensajes {
     autor: string
     destino: string
     estatus: boolean
+    createdAt: string
 }

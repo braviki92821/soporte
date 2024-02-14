@@ -3,4 +3,5 @@ export interface Solucion {
     destinatario: string
     autor: string
     mensaje: string
+    createdAt: string
 }

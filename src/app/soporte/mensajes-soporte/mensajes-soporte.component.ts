@@ -3,15 +3,16 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Mensajes } from 'src/app/modelos/mensajes';
 import { Usuarios } from 'src/app/modelos/usuario.model';
+import { AuthService } from 'src/app/service/auth.service';
 import { FirestoreService } from 'src/app/service/firestore.service';
 
 @Component({
-  selector: 'app-mensajes-admin',
-  templateUrl: './mensajes-admin.component.html',
-  styleUrls: ['./mensajes-admin.component.css']
+  selector: 'app-mensajes-soporte',
+  templateUrl: './mensajes-soporte.component.html',
+  styleUrls: ['./mensajes-soporte.component.css']
 })
-export class MensajesAdminComponent implements OnInit {
-
+export class MensajesSoporteComponent implements OnInit {
+  
   public consultUsers: Usuarios[]
   public consultMessages: Mensajes[]
   public messages: HTMLElement | null
@@ -22,8 +23,8 @@ export class MensajesAdminComponent implements OnInit {
   public formMessage: FormGroup = this.fb.group({
     mensaje: ['', Validators.required]
   })
-
-  constructor(private firestore: FirestoreService, private fb: FormBuilder, private auth: AngularFireAuth) { 
+  
+  constructor(private firestore: FirestoreService, private fb: FormBuilder, private auth: AngularFireAuth, private userAuth: AuthService) { 
     this.auth.currentUser.then( (auth)=> {
       this.uId = String(auth?.uid)
      }).catch((error)=> {
@@ -37,7 +38,7 @@ export class MensajesAdminComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.firestore.getCollectionByEquals<Usuarios>('usuarios', 'tipo', 'Soporte').subscribe((users) => {
+    this.userAuth.getUsers<Usuarios>('usuarios', this.uId).subscribe((users) => {
       this.consultUsers = users
     })
   }
@@ -49,7 +50,6 @@ export class MensajesAdminComponent implements OnInit {
     this.firestore.getMessages<Mensajes>(userid, this.uId).subscribe((messages)=> {
       this.consultMessages = messages
     })
-    
   }
 
   sendMessage() {

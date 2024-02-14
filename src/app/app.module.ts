@@ -28,6 +28,7 @@ import { SoporteInicioComponent } from './soporte/soporte-inicio/soporte-inicio.
 import { AdministradorInicioComponent } from './administrador/administrador-inicio/administrador-inicio.component';
 import { BitacoraComponent } from './administrador/bitacora/bitacora.component';
 import { PerfilAdministradorComponent } from './administrador/perfil-administrador/perfil-administrador.component';
+import { MensajesSoporteComponent } from './soporte/mensajes-soporte/mensajes-soporte.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { PerfilAdministradorComponent } from './administrador/perfil-administrad
     SoporteInicioComponent,
     AdministradorInicioComponent,
     BitacoraComponent,
-    PerfilAdministradorComponent
+    PerfilAdministradorComponent,
+    MensajesSoporteComponent
   ],
   imports: [
     BrowserModule,

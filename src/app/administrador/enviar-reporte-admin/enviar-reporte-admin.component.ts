@@ -55,7 +55,7 @@ export class EnviarReporteAdminComponent implements OnInit {
     this.mensaje.estatus = true
     this.firestore.createDocument(this.mensaje, 'mensajes', this.mensaje.id).catch((error) => {
       alert('Error al enviar')
-});
+    });
       this.formMensaje.reset()
       alert('Enviado Correctamente')
       this.formSubmmited = false

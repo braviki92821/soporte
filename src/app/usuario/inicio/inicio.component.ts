@@ -31,14 +31,14 @@ export class InicioComponent implements OnInit {
 
 
   getMessages(): void {
-    this.firestore.getMessages<Mensajes>(this.uId,'Notificacion', false).subscribe((mensajes) => {
+    this.firestore.getNotifications<Mensajes>(this.uId,'Notificacion', false).subscribe((mensajes) => {
       this.mensaje = mensajes.length > 0
       this.mensajes = mensajes
     })
   }
 
   getNotices(): void {
-    this.firestore.getMessages<Mensajes>('todos','Aviso', true).subscribe((avisos) => {
+    this.firestore.getNotifications<Mensajes>('todos','Aviso', true).subscribe((avisos) => {
       this.aviso = avisos.length > 0
       this.avisos = avisos
     })

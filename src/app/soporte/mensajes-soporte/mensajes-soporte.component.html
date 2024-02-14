@@ -1,4 +1,4 @@
-<app-header-admin></app-header-admin>
+<app-header-soporte></app-header-soporte>
 <main class="p-4 sm:ml-64">
     <div class="flex flex-row justify-between bg-white">
         <!-- chat list -->
@@ -16,7 +16,7 @@
         </div>
         <div class="messages hidden w-full px-5 flex flex-col justify-between">
             <div class="flex flex-col mt-5" *ngFor="let consult of consultMessages">
-              <div *ngIf="consult.autor == uId && consult.asunto == 'Mensaje' && consult.destino == destino" class="flex justify-start mb-4">
+              <div *ngIf="consult.autor == uId && consult.asunto == 'Mensaje' " class="flex justify-start mb-4">
                 <p>Tu</p>
                 <div class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
                     {{consult.mensaje}}
@@ -37,5 +37,5 @@
               </form>
             </div>
           </div>
-    </div>    
+    </div>   
 </main>
