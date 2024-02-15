@@ -1,0 +1,38 @@
+<app-header-admin></app-header-admin>
+<main class="p-4 md:ml-64">
+    <h1 class="text-center mt-5 font-bold text-2xl">Tablero de avisos</h1>
+    <div class="overflow-x-auto mt-6">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Asunto
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Mensaje
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Autor
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Creado el
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let consult of mensajes">
+                <tr class="border-b bg-gray-800 border-gray-700">
+                    <td class="px-6 py-4 font-medium  whitespace-nowrap text-white"> {{ consult.asunto }} </td>
+                    <td class="px-6 py-4 font-medium   text-white"> {{ consult.mensaje }} </td>
+                    <td class="px-6 py-4 font-medium  whitespace-nowrap text-white" > {{ consult.autor }} </td>
+                    <td class="px-6 py-4 font-medium  whitespace-nowrap text-white"> {{ consult.createdAt }} </td>
+                    <td class="px-6 py-4">
+                        <button [attr.data-reportId]="consult.id" (click)="deleteMessage($event)" class="text-white font-bold w-full text-center bg-red-500 cursor-pointer">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>

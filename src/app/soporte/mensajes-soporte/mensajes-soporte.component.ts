@@ -18,7 +18,7 @@ export class MensajesSoporteComponent implements OnInit {
   public messages: HTMLElement | null
   public destino: string
   public uId: string
-  public today: Date = new Date();
+  public mensaje: Mensajes
 
   public formMessage: FormGroup = this.fb.group({
     mensaje: ['', Validators.required]
@@ -47,32 +47,24 @@ export class MensajesSoporteComponent implements OnInit {
     const { userid } = event.target.dataset
     this.destino = userid
     this.messages?.classList.remove('hidden')
-    this.firestore.getMessages<Mensajes>(userid, this.uId).subscribe((messages)=> {
+    this.firestore.getMessages<Mensajes>(userid, this.uId, 'Mensaje').subscribe((messages)=> {
       this.consultMessages = messages
     })
   }
 
-  sendMessage() {
-    let mensaje: Mensajes = {
-      id: '',
-      asunto: '',
-      mensaje: '',
-      autor: '',
-      destino: '',
-      estatus: false,
-      createdAt: ''
-    }
+  async sendMessage() {
+    const today: Date = new Date();
     if(this.formMessage.invalid){
       return
     }
-    mensaje.id = this.firestore.getId()
-    mensaje.asunto = "Mensaje"
-    mensaje.autor = this.uId
-    mensaje.destino = this.destino
-    mensaje.estatus = true
-    mensaje.mensaje = this.formMessage.value.mensaje
-    mensaje.createdAt = mensaje.createdAt = this.today.toLocaleDateString() + " " + this.today.toLocaleTimeString()
-    this.firestore.createDocument(mensaje, 'mensajes', mensaje.id).catch((error) => {
+    this.mensaje= this.formMessage.value
+    this.mensaje.id = this.firestore.getId()
+    this.mensaje.asunto = "Mensaje"
+    this.mensaje.autor = this.uId
+    this.mensaje.destino = this.destino
+    this.mensaje.estatus = true
+    this.mensaje.createdAt = today.toLocaleDateString() + " " + today.toLocaleTimeString() +":"+ today.getUTCMilliseconds().toString()
+    await this.firestore.createDocument(this.mensaje, 'mensajes', this.mensaje.id).catch((error) => {
       alert('Error al enviar')
     });
     this.formMessage.reset()

@@ -29,6 +29,9 @@ import { AdministradorInicioComponent } from './administrador/administrador-inic
 import { BitacoraComponent } from './administrador/bitacora/bitacora.component';
 import { PerfilAdministradorComponent } from './administrador/perfil-administrador/perfil-administrador.component';
 import { MensajesSoporteComponent } from './soporte/mensajes-soporte/mensajes-soporte.component';
+import { AvisosComponent } from './administrador/avisos/avisos.component';
+import { BuzonComponent } from './usuario/buzon/buzon.component';
+import { MensajesReporteComponent } from './soporte/mensajes-reporte/mensajes-reporte.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,10 @@ import { MensajesSoporteComponent } from './soporte/mensajes-soporte/mensajes-so
     AdministradorInicioComponent,
     BitacoraComponent,
     PerfilAdministradorComponent,
-    MensajesSoporteComponent
+    MensajesSoporteComponent,
+    AvisosComponent,
+    BuzonComponent,
+    MensajesReporteComponent
   ],
   imports: [
     BrowserModule,

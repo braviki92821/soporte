@@ -19,6 +19,9 @@ import { SoporteInicioComponent } from './soporte/soporte-inicio/soporte-inicio.
 import { AdministradorInicioComponent } from './administrador/administrador-inicio/administrador-inicio.component';
 import { BitacoraComponent } from './administrador/bitacora/bitacora.component';
 import { MensajesSoporteComponent } from './soporte/mensajes-soporte/mensajes-soporte.component';
+import { AvisosComponent } from './administrador/avisos/avisos.component';
+import { BuzonComponent } from './usuario/buzon/buzon.component';
+import { MensajesReporteComponent } from './soporte/mensajes-reporte/mensajes-reporte.component';
 
 const routes: Routes = [
   { path:'', redirectTo: '/auth/login', pathMatch: 'full' },
@@ -30,14 +33,17 @@ const routes: Routes = [
   { path: 'admin/tablero', component: TableroAtencionComponent, canActivate: [AdminGuardGuard] },
   { path: 'admin/bitacora', component: BitacoraComponent, canActivate: [AdminGuardGuard] },
   { path: 'admin/enviar-mensaje', component: EnviarReporteAdminComponent, canActivate: [AdminGuardGuard] },
-  { path: 'admin/mensajes', component:MensajesAdminComponent, canActivate: [AdminGuardGuard] },
+  { path: 'admin/mensajes', component: MensajesAdminComponent, canActivate: [AdminGuardGuard] },
+  { path: 'admin/avisos', component: AvisosComponent, canActivate: [AdminGuardGuard] },
   { path: 'user/inicio', component: InicioComponent, canActivate: [UserGuardGuard] },
   { path: 'user/crear-reporte', component: SolicitudComponent, canActivate: [UserGuardGuard] },
   { path: 'user/mis-reportes', component: MisReportesComponent, canActivate: [UserGuardGuard] },
+  { path: 'user/buzon', component: BuzonComponent, canActivate: [UserGuardGuard] },
   { path: 'support/inicio', component: SoporteInicioComponent, canActivate: [SupportGuardGuard] },
-  { path: 'support/tablero-reportes', component: TableroSoporteComponent, canActivate:[SupportGuardGuard] },
-  { path: 'support/tablero-soporte', component: TableroSolicitudesComponent, canActivate:[SupportGuardGuard] },
-  { path: 'support/mensajes', component: MensajesSoporteComponent, canActivate:[SupportGuardGuard] },
+  { path: 'support/tablero-reportes', component: TableroSoporteComponent, canActivate: [SupportGuardGuard] },
+  { path: 'support/tablero-soporte', component: TableroSolicitudesComponent, canActivate: [SupportGuardGuard] },
+  { path: 'support/mensajes', component: MensajesSoporteComponent, canActivate: [SupportGuardGuard] },
+  { path: 'support/mensajes-reporte', component: MensajesReporteComponent, canActivate: [SupportGuardGuard] },
   { path:'**', redirectTo: '/auth/login', pathMatch: 'full'}
 ];
 

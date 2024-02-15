@@ -15,11 +15,13 @@ export class TableroSolicitudesComponent implements OnInit {
 
   public uId: string;
   public modalR: boolean = false
+  public modalM: boolean = false
   public modalA: HTMLElement | null
   public consultReports: Reportes[]
   public solucion: Solucion
   public mensaje: Mensajes
   public inputId: HTMLElement | null
+  public inputIdm: HTMLElement | null
   public destinatario:HTMLElement | null
   public inputNombre: HTMLElement | null
   public inputArea: HTMLElement | null
@@ -29,6 +31,12 @@ export class TableroSolicitudesComponent implements OnInit {
       destinatario: ['', Validators.required],
       mensaje: ['', Validators.required]
   })
+
+  public solutionForm: FormGroup = this.fb.group({
+    id:['', Validators.required],
+    destinatario: ['', Validators.required],
+    mensaje: ['', Validators.required]
+})
   
   constructor(private firestore: FirestoreService, private fb: FormBuilder, private auth: AngularFireAuth) { 
     this.auth.currentUser.then( (auth)=> {
@@ -42,6 +50,7 @@ export class TableroSolicitudesComponent implements OnInit {
     this.reportTable()
     this.modalA = document.querySelector('.modal-Info')
     this.inputId = document.querySelector('.reporte-Id')
+    this.inputIdm = document.querySelector('.reporte-Idm')
     this.destinatario = document.querySelector('.usuario-Id')
     this.inputNombre = document.querySelector('.usuario-Ida')
     this.inputArea = document.querySelector('.usuario-Area')
@@ -49,15 +58,14 @@ export class TableroSolicitudesComponent implements OnInit {
   }
 
   reportTable(): void {
-    this.firestore.getCollectionTwoArguments<Reportes>('reportes', 'estatus', 'En Revision', 'atendido', this.uId).subscribe((reportes) => {
+    this.firestore.getCollectionByEquals<Reportes>('reportes', 'atendido', this.uId).subscribe((reportes) => {
       this.consultReports = reportes
    })
   }
 
   showModalForm(event: any): void {
      this.modalR = true
-     const { reportid } = event.target.dataset
-     const { usuarioid } = event.target.dataset
+     const { reportid, usuarioid } = event.target.dataset
      this.inputId?.setAttribute('disabled', '')
      this.soporteForm.setValue({
        id: reportid,
@@ -66,10 +74,23 @@ export class TableroSolicitudesComponent implements OnInit {
      })
   }
 
+  showModalSolution(event: any): void {
+    this.modalM = true
+    this.inputIdm?.setAttribute('disabled', '')
+    const { reportid, usuarioid } = event.target.dataset
+    this.firestore.getDocument(reportid, 'solucion').subscribe((data) => { 
+      this.solutionForm.setValue({
+        id: reportid,
+        destinatario: usuarioid,
+        mensaje: data.payload.data()['mensaje']
+      })
+    })
+  
+  }
+
   autor(event: any): void {
       this.modalA?.classList.remove('hidden')
       const { autor } = event.target.dataset
-      console.log(autor)
       this.firestore.getDocument(autor, 'usuarios').subscribe((datos)=> {
       this.inputNombre?.setAttribute('value', datos.payload.data()['nombre'])
       this.inputNombre?.setAttribute('disabled', '')
@@ -80,24 +101,44 @@ export class TableroSolicitudesComponent implements OnInit {
 
   closeModal(): void {
     this.modalR = false
+    this.modalM = false
   }
 
   closeModalInfo(): void {
     this.modalA?.classList.add('hidden')
   }
 
-  sendResponse(): void {
+  async sendResponse(): Promise<void> {
     if(this.soporteForm.invalid){
       return
     }
     this.solucion = this.soporteForm.value
     this.solucion.autor = this.uId
-    this.firestore.updateDocument(this.solucion.id, { estatus: 'Verificando' }, 'reportes')
-    this.firestore.createDocument(this.solucion, 'solucion', this.solucion.id).catch((error) => {
+    await this.firestore.updateDocument(this.solucion.id, { estatus: 'Verificando' }, 'reportes')
+    await this.firestore.createDocument(this.solucion, 'solucion', this.solucion.id).catch((error) => {
       alert('Error al enviar')
     });
     alert('Solucion enviada')
     this.closeModal()
+  }
+
+  async sendNewResponse(): Promise<void> {
+    if(this.solutionForm.invalid){
+      return
+    }
+    this.solucion = this.solutionForm.value
+    this.solucion.autor = this.uId
+    await this.firestore.updateDocument(this.solucion.id, this.solucion, 'solucion').catch((error) => {
+      alert("Error al actualizar")
+    })
+    alert('Solucion Modificada')
+    this.closeModal()
+  }
+
+  async deleteReport(event: any) {
+    const { reportid} = event.target.dataset
+    await this.firestore.deleteDocument(reportid, 'reportes').catch((error) => alert("Error al borrar"))
+    await this.firestore.deleteDocument(reportid, 'solucion').catch((error) => alert("Error al borrar"))
   }
 
 }
