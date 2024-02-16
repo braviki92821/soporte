@@ -41,7 +41,7 @@ export class FirestoreService {
 
   getNotifications<Mensajes>(destino:string, asunto: string, estatus: boolean): Observable<Mensajes[]> {
     const collection = this.firestore.collection<Mensajes>('mensajes', (ref) => 
-      ref.where('destino', "==", destino).where('asunto','==', asunto).where('estatus', '==', estatus)
+      ref.where('destino', "==", destino).where('asunto','==', asunto).where('estatus', '==', estatus).orderBy('createdAt', 'desc')
     )
     return collection.valueChanges();
   }
@@ -50,7 +50,7 @@ export class FirestoreService {
     const collection = this.firestore.collection<Mensajes>('mensajes', (ref) => 
     ref.where('destino', "in", [destino, autor]).where('asunto','==', asunto).where('autor', "in", [destino, autor]).orderBy('createdAt','asc'),
     )
-  return collection.valueChanges();
+    return collection.valueChanges();
   }
 
   getDocument(id: string,collection:string): Observable<any> {

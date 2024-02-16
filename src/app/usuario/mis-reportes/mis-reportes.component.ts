@@ -99,7 +99,7 @@ export class MisReportesComponent implements OnInit {
     if(this.asunto == null || this.asunto == ''){
       return
     }
-    this.mensaje = { id: this.firestore.getId(), asunto: 'Notificacion', mensaje: 'Se ha aceptado la solucion del reporte' +this.asunto + ' Puede eliminar el reporte', autor: this.uId, destino: this.destino, estatus: false, createdAt:today.toLocaleDateString() + " " + today.toLocaleTimeString() +":"+ today.getUTCMilliseconds().toString() }
+    this.mensaje = { id: this.firestore.getId(), asunto: 'Notificacion', mensaje: 'Se ha aceptado la solucion del reporte: ' +this.asunto + ' Puede eliminar el reporte', autor: this.uId, destino: this.destino, estatus: false, createdAt:today.toLocaleDateString() + " " + today.toLocaleTimeString() +":"+ today.getUTCMilliseconds().toString() }
     let data = { estatus: 'Completo' }
     await this.firestore.updateDocument(this.asunto, data, 'reportes').catch((error) => {
       alert("Error")

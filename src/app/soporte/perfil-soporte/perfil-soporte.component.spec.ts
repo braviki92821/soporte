@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BitacoraComponent } from './bitacora.component';
+import { PerfilSoporteComponent } from './perfil-soporte.component';
 
-describe('BitacoraComponent', () => {
-  let component: BitacoraComponent;
-  let fixture: ComponentFixture<BitacoraComponent>;
+describe('PerfilSoporteComponent', () => {
+  let component: PerfilSoporteComponent;
+  let fixture: ComponentFixture<PerfilSoporteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BitacoraComponent ]
+      declarations: [ PerfilSoporteComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BitacoraComponent);
+    fixture = TestBed.createComponent(PerfilSoporteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

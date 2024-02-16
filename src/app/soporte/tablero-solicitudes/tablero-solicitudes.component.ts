@@ -54,7 +54,6 @@ export class TableroSolicitudesComponent implements OnInit {
     this.destinatario = document.querySelector('.usuario-Id')
     this.inputNombre = document.querySelector('.usuario-Ida')
     this.inputArea = document.querySelector('.usuario-Area')
-
   }
 
   reportTable(): void {
@@ -85,7 +84,6 @@ export class TableroSolicitudesComponent implements OnInit {
         mensaje: data.payload.data()['mensaje']
       })
     })
-  
   }
 
   autor(event: any): void {
@@ -109,12 +107,17 @@ export class TableroSolicitudesComponent implements OnInit {
   }
 
   async sendResponse(): Promise<void> {
+    const today: Date = new Date();
     if(this.soporteForm.invalid){
       return
     }
+    this.mensaje = { id: this.firestore.getId(), asunto: 'Notificacion', mensaje: 'Tu reporte con Id: ' +this.soporteForm.value.id+ ' Esta en Verificacion por favor revisar la solucion enviada', autor: this.uId, destino: this.soporteForm.value.destinatario, estatus: false, createdAt:today.toLocaleDateString() + " " + today.toLocaleTimeString() +":"+ today.getUTCMilliseconds().toString() }
     this.solucion = this.soporteForm.value
     this.solucion.autor = this.uId
     await this.firestore.updateDocument(this.solucion.id, { estatus: 'Verificando' }, 'reportes')
+    await this.firestore.createDocument(this.mensaje, 'mensajes', this.mensaje.id).catch((error)=> {
+      alert('Error al enviar')
+    })
     await this.firestore.createDocument(this.solucion, 'solucion', this.solucion.id).catch((error) => {
       alert('Error al enviar')
     });

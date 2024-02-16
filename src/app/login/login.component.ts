@@ -21,21 +21,23 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
       this.auth.getAuth().subscribe((auth) => {
-        this.auth.getUser(auth?.uid).subscribe((user) => {
-          if(user.payload.data()['tipo'] == "Administrador"){
-            this.aroute.navigate(['/admin/crear-usuario'])
-            localStorage.setItem('usuario', user.payload.data()['nombre']);
-            localStorage.setItem('tipoUser', user.payload.data()['tipo'])
-          } else if(user.payload.data()['tipo'] == "Soporte"){
-            this.aroute.navigate(['/support/tablero-reportes'])
-            localStorage.setItem('usuario', user.payload.data()['nombre']);
-            localStorage.setItem('tipoUser', user.payload.data()['tipo'])
-          } else if( user.payload.data()['tipo'] == "Usuario"){
-            this.aroute.navigate(['/user/inicio'])
-            localStorage.setItem('usuario', user.payload.data()['nombre']);
-            localStorage.setItem('tipoUser', user.payload.data()['tipo'])
-          }
-        })
+        if(auth){
+          this.auth.getUser(auth?.uid).subscribe((user) => {
+            if(user.payload.data()['tipo'] == "Administrador"){
+              this.aroute.navigate(['/admin/inicio'])
+              localStorage.setItem('usuario', user.payload.data()['nombre']);
+              localStorage.setItem('tipoUser', user.payload.data()['tipo'])
+            } else if(user.payload.data()['tipo'] == "Soporte"){
+              this.aroute.navigate(['/support/inicio'])
+              localStorage.setItem('usuario', user.payload.data()['nombre']);
+              localStorage.setItem('tipoUser', user.payload.data()['tipo'])
+            } else if( user.payload.data()['tipo'] == "Usuario"){
+              this.aroute.navigate(['/user/inicio'])
+              localStorage.setItem('usuario', user.payload.data()['nombre']);
+              localStorage.setItem('tipoUser', user.payload.data()['tipo'])
+            }
+          })
+        }
       })
   }
 

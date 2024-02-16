@@ -33,7 +33,7 @@ export class AuthService {
                   localStorage.setItem('usuario',user.payload.data()['nombre']);
                   localStorage.setItem('tipoUser',tipo)
                 } else if(tipo == "Soporte"){
-                  this.aroute.navigate(['/support/tablero-reportes'])
+                  this.aroute.navigate(['/support/inicio'])
                   localStorage.setItem('usuario',user.payload.data()['nombre']);
                   localStorage.setItem('tipoUser',tipo)
                 } else if( tipo == "Usuario"){

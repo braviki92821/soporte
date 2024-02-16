@@ -4,11 +4,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirestoreService } from 'src/app/service/firestore.service';
 
 @Component({
-  selector: 'app-perfil-administrador',
-  templateUrl: './perfil-administrador.component.html',
-  styleUrls: ['./perfil-administrador.component.css']
+  selector: 'app-perfil',
+  templateUrl: './perfil.component.html',
+  styleUrls: ['./perfil.component.css']
 })
-export class PerfilAdministradorComponent implements OnInit {
+export class PerfilComponent implements OnInit {
 
   public uId: string
   public profileForm: FormGroup = this.fb.group({
