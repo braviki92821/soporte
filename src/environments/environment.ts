@@ -1,14 +1,12 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyBP4YNgUrconyJV49GMVyySeqytFtnH6N4",
-    authDomain: "pruebas-beb1c.firebaseapp.com",
-    databaseURL: "https://pruebas-beb1c-default-rtdb.firebaseio.com",
-    projectId: "pruebas-beb1c",
-    storageBucket: "pruebas-beb1c.appspot.com",
-    messagingSenderId: "692155040398",
-    appId: "1:692155040398:web:38f79018263ad39ec77fdf",
-    measurementId: "G-ZYYYS2ZEWG"
+    apiKey: "AIzaSyDuoeNQu8wwnN-vMkoy0VBs800uz6288qQ",
+    authDomain: "fir-angular-85ec0.firebaseapp.com",
+    projectId: "fir-angular-85ec0",
+    storageBucket: "fir-angular-85ec0.appspot.com",
+    messagingSenderId: "139996636817",
+    appId: "1:139996636817:web:edfc4b7f8b474bbb0d0130"
   }
 };
 
